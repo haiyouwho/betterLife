@@ -1,0 +1,222 @@
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+address,
+big,
+cite,
+code,
+img,
+input,
+button,
+section,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  line-height: 1;
+  background: #F9F9F9;
+  color: #424242;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+a {
+  color: #252525;
+  text-decoration: none;
+}
+.bd{
+    border:1px solid red;
+}
+.clearfix:after {
+  content: " ";
+  display: block;
+  clear: both;
+  height: 0;
+}
+
+.clearfix {
+  zoom: 1;
+}
+
+.pull-right {
+  float: right;
+}
+
+.pull-left {
+  float: left;
+}
+.text-xs{
+    font-size: .6rem;
+}
+.text-sm{
+    font-size: .75rem;
+}
+.text-md{
+    font-size: .85rem;
+}
+.text-lg{
+    font-size: 1rem;
+}
+.text-over{
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.text-b{
+  font-weight: 700;
+}
+.text-left{
+  text-align: left;
+}
+.text-right{
+  text-align: right;
+}
+.text-center{
+  text-align: center;
+}
+.c-base{
+    color: #00796b;
+}
+.c-r{
+  color: red;
+}
+.c-333{
+  color: #333;
+}
+.c-666{
+  color: #666;
+}
+.c-999{
+  color: #999;
+}
+.c-ccc{
+  color: #ccc;
+}
+.c-orange{
+  color: #f44336;
+}
+.c-orange-{
+  color: #c62828;
+}
+.c-blue{
+  color: #2196f3;
+}
+.c-blue-{
+  color: #1565c0;
+}
+.b-b{
+  border-bottom: 1px solid #ccc;
+}
+
+
+.m-t-xs {
+  margin-top: 3px;
+}
+
+.m-t-sm {
+  margin-top: .25rem;
+}
+
+.m-t {
+  margin-top: .5rem;
+}
+
+.m-t-md {
+  margin-top: .75rem;
+}
+
+.m-t-lg {
+  margin-top: 1rem;
+}
+
+.m-b-xs {
+  margin-bottom: 3px;
+}
+
+.m-b-sm {
+  margin-bottom: .25rem;
+}
+
+.m-b {
+  margin-bottom: .5rem;
+}
+
+.m-b-md {
+  margin-bottom: .75rem;
+}
+
+.m-b-lg {
+  margin-bottom: 1rem;
+}
+
+.m-l-xs {
+  margin-left: 3px;
+}
+
+.m-l-sm {
+  margin-left: .25rem;
+}
+
+.m-l {
+  margin-left: .5rem;
+}
+
+.m-l-md {
+  margin-left: .75rem;
+}
+
+.m-l-lg {
+  margin-left: 1rem;
+}
+
+.m-r-xs {
+  margin-right: 3px;
+}
+
+.m-r-sm {
+  margin-right: .25rem;
+}
+
+.m-r {
+  margin-right: .5rem;
+}
+
+.m-r-md {
+  margin-right: .75rem;
+}
+
+.m-r-lg {
+  margin-right: 1rem;
+}
