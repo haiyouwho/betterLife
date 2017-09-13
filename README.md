@@ -1,4 +1,4 @@
-# app
+# betterLife
 
 > A Vue.js project
 
