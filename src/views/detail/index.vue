@@ -11,7 +11,7 @@
     <div class="banner">
       <img :src="obj.images.large" alt="">
     </div>
-    <div class="info bd">
+    <div class="info">
       <mu-row>
         <mu-col width="70" class="text-left item">
           <h2>{{obj.title}}</h2>
@@ -33,10 +33,10 @@
       </mu-row>
       <mu-row class="m-t-md">
         <mu-col width="40">
-          <mu-raised-button label="想看" icon="favorite_border" rippleColor="red" color="#FFAC2D" fullWidth="1" />
+          <mu-raised-button label="想看" icon="favorite_border" rippleColor="red" color="#FFAC2D" :fullWidth="true" />
         </mu-col>
         <mu-col width="50">
-          <mu-raised-button class="rating-btn" label="看过" labelPosition="before" fullWidth="1" icon="star_border" color="#FFAC2D" />
+          <mu-raised-button class="rating-btn" label="看过" labelPosition="before" :fullWidth="true" icon="star_border" color="#FFAC2D" />
         </mu-col>
       </mu-row>
     </div>
@@ -44,33 +44,44 @@
       <div class="title">简介</div>
       <div class="content">{{obj.summary}}</div>
     </div>
+    <div class="sec">
+      <div class="title">影人</div>
+      <div class="content">
+      	<v-slider :imgTextarr="actorArr"></v-slider>
+      </div>
+    </div>
   </div>
 </template>
 <script>
+import slider_text from '@com/sliders/slider_text'
 import { detailUrl, getUrlData, dealDou } from '@/utils'
 export default {
   data() {
     return {
       obj: {},
-      title: ''
+      title: '',
+      actorArr:[]
     }
   },
-  // beforeRouteEnter(to, from, next) {
-  //   let id = to.params.id
-  //   next(vm => {
-  //     let url = detailUrl(id)
-  //     getUrlData(vm, url, (data) => {
-  //       vm.obj = data
-  //       vm.init()
-  //     })
+  beforeRouteEnter(to, from, next) {
+    let id = to.params.id
+    next(vm => {
+      let url = detailUrl(id)
+      getUrlData(vm, url, (data) => {
+        vm.obj = data
+        vm.init()
+      })
+    })
+  },
+  // created() {
+  //   let url = detailUrl('26264454')
+  //   getUrlData(this, url, (data) => {
+  //     this.obj = data
+  //     this.init()
   //   })
   // },
-  created() {
-    let url = detailUrl('26264454')
-    getUrlData(this, url, (data) => {
-      this.obj = data
-      this.init()
-    })
+  components:{
+  	'v-slider':slider_text
   },
   methods: {
     goback() {
@@ -78,6 +89,8 @@ export default {
     },
     init() {
       this.title = '短评总数：' + this.obj.comments_count
+      this.actorArr = this.obj.casts
+      this.actorArr.unshift(this.obj.directors[0])
     }
   }
 }
