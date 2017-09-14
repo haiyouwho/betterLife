@@ -29,7 +29,7 @@
               <p>豆瓣评分</p>
               <h1>{{obj.rating.average}}</h1>
               <p>{{obj.ratings_count}}人</p>
-              <v-ratings></v-ratings>
+              <v-ratings :rating = "obj.rating.average"></v-ratings>
             </div>
           </mu-col>
         </mu-row>
@@ -71,23 +71,23 @@ export default {
       timer: null
     }
   },
-  // beforeRouteEnter(to, from, next) {
-  //   let id = to.params.id
-  //   next(vm => {
-  //     let url = detailUrl(id)
-  //     getUrlData(vm, url, (data) => {
-  //       vm.obj = data
-  //       vm.init()
-  //     })
-  //   })
-  // },
-  created() {
-    let url = detailUrl('25808075')
-    getUrlData(this, url, (data) => {
-      this.obj = data
-      this.init()
+  beforeRouteEnter(to, from, next) {
+    let id = to.params.id
+    next(vm => {
+      let url = detailUrl(id)
+      getUrlData(vm, url, (data) => {
+        vm.obj = data
+        vm.init()
+      })
     })
   },
+  // created() {
+  //   let url = detailUrl('25808075')
+  //   getUrlData(this, url, (data) => {
+  //     this.obj = data
+  //     this.init()
+  //   })
+  // },
   components: {
     'v-slider': slider_text,
     'v-ratings': ratings
