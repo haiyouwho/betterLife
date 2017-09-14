@@ -9,7 +9,7 @@ export default {
 }
 
 </script>
-<style>
+<style >
 body,
 html {
   width: 100%;

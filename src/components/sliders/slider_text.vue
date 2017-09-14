@@ -1,7 +1,7 @@
 <template>
   <div class="slider">
     <swiper :options="swiperOption">
-      <swiper-slide v-for="item,index in imgTextarr">
+      <swiper-slide v-for="item,index in imgTextarr" :key="index">
         <div class="swi-item">
           <img :src="item.avatars.medium" alt="">
           <p class="swi-text "><span v-text="index==0 ? '导演' : '主演'" class="c-ccc"></span> {{item.name}}</p>

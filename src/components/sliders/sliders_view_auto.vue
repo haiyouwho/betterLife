@@ -1,7 +1,7 @@
 <template>
   <div class="slider">
     <swiper :options="swiperOption">
-      <swiper-slide v-for="item in imgArr">
+      <swiper-slide v-for="item,index in imgArr" :key="index">
         <div class="swi-item">
           <img :src="item.image" alt="">
           <p class="c-base">

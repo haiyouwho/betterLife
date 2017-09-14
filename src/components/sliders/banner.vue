@@ -1,7 +1,7 @@
 <template>
   <div class="swiper-inner">
     <swiper :options="swiperOption">
-      <swiper-slide v-for="item in bannerImgArr">
+      <swiper-slide v-for="item,index in bannerImgArr" :key="index">
         <router-link :to="{name:'detail',params:{id:item.id}}">
           <div class="swi-item">
             <img :src="item.image">

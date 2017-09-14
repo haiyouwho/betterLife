@@ -25,6 +25,9 @@ import '@/assets/css/swiper-3.4.2.min.css'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 Vue.use(VueAwesomeSwiper)
 
+import VueScroller from 'vue-scroller'
+Vue.use(VueScroller)
+
 import { setGlobalfontSize } from '@/utils'
 setGlobalfontSize()
 
