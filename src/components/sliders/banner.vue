@@ -18,15 +18,16 @@ export default {
   data() {
     return {
       swiperOption: {
+        autoplay: 1500,
         pagination: '.swiper-pagination',
         effect: 'coverflow',
         grabCursor: true,
         centeredSlides: true,
         slidesPerView: 'auto',
         coverflow: {
-          rotate: 50,
+          rotate: 100,
           stretch: 0,
-          depth: 100,
+          depth: 1000,
           modifier: 1,
           slideShadows: true
         }
@@ -49,10 +50,10 @@ export default {
   background-size: cover;
   width: 100%;
   height: 8rem;
-  a{
+  a {
     display: block;
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
   }
 }
 
