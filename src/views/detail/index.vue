@@ -29,16 +29,16 @@
               <p>豆瓣评分</p>
               <h1>{{obj.rating.average}}</h1>
               <p>{{obj.ratings_count}}人</p>
-              <v-ratings :rating = "obj.rating.average"></v-ratings>
+              <v-ratings :rating="obj.rating.average"></v-ratings>
             </div>
           </mu-col>
         </mu-row>
-        <mu-row class="m-t-md">
+        <mu-row class="m-t-lg">
           <mu-col width="40">
-            <mu-raised-button label="想看" icon="favorite_border" rippleColor="red" color="#FFAC2D" :fullWidth="true" />
+            <mu-raised-button class="rating-btn" label="看过" labelPosition="before" :fullWidth="true" icon="star_border" color="#FFAC2D" />
           </mu-col>
           <mu-col width="50">
-            <mu-raised-button class="rating-btn" label="看过" labelPosition="before" :fullWidth="true" icon="star_border" color="#FFAC2D" />
+            <mu-raised-button label="想看" icon="favorite_border" rippleColor="red" color="#FFAC2D" :fullWidth="true" />
           </mu-col>
         </mu-row>
       </div>
@@ -135,6 +135,9 @@ export default {
 
 </script>
 <style lang="scss" scoped>
+h1{
+  margin:.2rem 0;
+}
 .head {
   position: fixed;
   left: 0;

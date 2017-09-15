@@ -14,21 +14,23 @@
         <div v-show="!tabMoving">
           <ul class="tab-list">
             <li v-for="item, index in listTabs">
-              <mu-row>
-                <mu-col width="15" class="tab-img">
-                  <img :src="item.image" alt="">
-                </mu-col>
-                <mu-col width="85">
-                  <p class="text-over">
-                    <span class="text-sm ">{{item.title}}</span>
-                    <span class="c-base text-xs m-r-xs">{{item.genres}}</span>
-                  </p>
-                  <p class="text-xs">
-                    <span class="c-orange" v-text="item.rating.average==0? '暂无评分' : item.rating.average+'分'"></span>
-                    <span class="pull-right b-b">{{item.collect_count}}人看过</span>
-                  </p>
-                </mu-col>
-              </mu-row>
+              <router-link :to="{name:'detail',params:{id:item.id}}">
+                <mu-row>
+                  <mu-col width="15" class="tab-img">
+                    <img v-lazy="item.images.small">
+                  </mu-col>
+                  <mu-col width="85">
+                    <p class="text-over">
+                      <span class="text-sm ">{{item.title}}</span>
+                      <span class="c-base text-xs m-r-xs">{{item.genres}}</span>
+                    </p>
+                    <p class="text-xs">
+                      <span class="c-orange" v-text="item.rating.average==0? '暂无评分' : item.rating.average+'分'"></span>
+                      <span class="pull-right b-b">{{item.collect_count}}人看过</span>
+                    </p>
+                  </mu-col>
+                </mu-row>
+              </router-link>
             </li>
           </ul>
         </div>
@@ -37,19 +39,16 @@
   </div>
 </template>
 <script>
-import { top250Url,commingUrl,usboxUrl, getUrlData,dealDou } from '@/utils'
+import { top250Url, commingUrl, usboxUrl, getUrlData, dealDou } from '@/utils'
 export default {
   data() {
     return {
-      hotTotal: 0,
-      commingSoon: 0,
-      listNumber: 0,
-      listNumObj: {},
-      listTabs: [],
-      listTop250: [],
-      listUSBox: [],
-      listComming:[],
-      tabNumber: 0,
+      listNumObj: {}, //三个栏目各自的电影数量
+      tabNumber: 0, //显示的数量
+      listTabs: [], //正显示的列表
+      listTop250: [], //top250
+      listUSBox: [], //北美票房网
+      listCom: [], //即将上映
       currentTabIndex: 0,
       currentTabIndex_: 0,
       currentTab: ['Top 250', '即将上映', '北美票房榜'],
@@ -57,7 +56,8 @@ export default {
     }
   },
   created() {
-  	this.tabChangTo('Top 250', 1)
+    this.tabChangTo('Top 250', 1)
+    this.tabCurrentName('Top 250')
   },
   methods: {
     tabAnimation(index) { //点击按钮开始动画，并且获取数据
@@ -85,21 +85,20 @@ export default {
       })
       this.currentTab.unshift(str)
     },
-    tabChangTo(str, isFrist) { //获取对应按钮的数据，放入缓存，更新tab
+    tabChangTo(str) { //获取对应按钮的数据，放入缓存，更新tab
       let url = ''
-      isFrist ? this.tabCurrentName(str) : ''
       switch (str) {
         case 'Top 250':
           url = top250Url()
           this.tabListExist(this.listTop250, this.listNumObj.top250, url, (arr, total) => {
-            this.listTop250 = arr
+            this.listTop250 = arr.slice(0, 5)
             this.listNumObj.top250 = total
           })
           break
         case '即将上映':
           url = commingUrl()
-          this.tabListExist(this.listComming, this.listNumObj.comming, url, (arr, total) => {
-            this.listComming = arr
+          this.tabListExist(this.listCom, this.listNumObj.comming, url, (arr, total) => {
+            this.listCom = arr
             this.listNumObj.comming = total
           })
           break
@@ -112,7 +111,14 @@ export default {
           break
       }
     },
-    tabListExist(tarList, total, url, callback) { //点击的按钮是否有数据缓存，有就直接使用，没有再去获取
+    /*
+     *  点击的按钮是否有数据缓存，有就直接使用，没有再去获取
+     *  @params tarList 要显示的列表
+     *  @params total 总数
+     *  @params ulr 没有数据的话要获取的数据url
+     *  @params 获取到数据后的回调
+     */
+    tabListExist(tarList, total, url, callback) {
       if (tarList.length != 0) {
         this.tabNext(tarList, total)
         return
@@ -131,8 +137,9 @@ export default {
       getUrlData(this, url, function(data) {
         let arr = [],
           total = ''
-        arr = dealDou(data, {'img':'small'})
+        arr = dealDou(data)
         total = typeof(data.total) == 'undefined' ? data.subjects.length : data.total
+        arr = arr.slice(0, 5)
         callback(arr, total)
       })
     }
@@ -182,6 +189,9 @@ export default {
   text-align: left;
   li {
     margin-bottom: 1px;
+    a{
+      color:#666;
+    }
   }
   .tab-img {
     width: 15%;

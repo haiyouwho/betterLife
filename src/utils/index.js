@@ -71,26 +71,23 @@ function detailUrl(id = 1764796) {
 function dealDou(data, options) {
   let arr = []
   options = Object.assign({
-    sortBy: 'collect_count',
-    img: 'large'
+    sortBy: 'collect_count'
   }, options)
   data.subjects.forEach(function(val, key) {
     try {
-      let obj = {}
+      let castsArr = []
       val = typeof(val.title) == 'undefined' ? val.subject : val //top250的数据结构不一样
-      obj.image = val.images[options.img]
-      obj.title = val.title
-      obj.id = val.id
-      obj.year = val.year
-      obj.genres = val.genres.join('/')
-      obj.author = val.directors[0].name
-      obj.collect_count = val.collect_count
-      obj.rating = val.rating
-      arr.push(obj)　
+      val.genres = val.genres.join('/')
+      val.casts.forEach((v,k)=>{
+          castsArr.push(v.name)
+      })
+      val.castsName = castsArr.join('/')
+      arr.push(val)　
     } catch (err) {
       console.log('catch error:', err)　　
     }
   })
+  data = null 
   arr = sortArr(arr, [options.sortBy])
   return arr
 }

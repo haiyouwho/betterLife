@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-
-import index from '@/views/index'
-import home from '@/views/home'
-import live from '@/views/live'
-import books from '@/views/books'
-import user from '@/views/user'
-import detail from '@/views/detail'
+const index = r => require.ensure([], () => r(require('@/views/index')), 'index'),
+  home = r => require.ensure([], () => r(require('@/views/home')), 'home'),
+  live = r => require.ensure([], () => r(require('@/views/live')), 'live'),
+  books = r => require.ensure([], () => r(require('@/views/books')), 'books'),
+  user = r => require.ensure([], () => r(require('@/views/user')), 'user'),
+  detail = r => require.ensure([], () => r(require('@/views/detail')), 'detail')
 
 Router.prototype.goback = function() {
   this.isBack = true

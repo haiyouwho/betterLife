@@ -4,7 +4,7 @@
       <swiper-slide v-for="item,index in bannerImgArr" :key="index">
         <router-link :to="{name:'detail',params:{id:item.id}}">
           <div class="swi-item">
-            <img :src="item.image">
+            <img v-lazy="item.images.large">
             <p>{{item.title}} <span class="c-base text-b">by</span> {{item.author}}</p>
           </div>
         </router-link>
@@ -24,6 +24,8 @@ export default {
         grabCursor: true,
         centeredSlides: true,
         slidesPerView: 'auto',
+        indicatorsColor:'#fff',
+        indicatorsActiveColor:'red',
         coverflow: {
           rotate: 100,
           stretch: 0,

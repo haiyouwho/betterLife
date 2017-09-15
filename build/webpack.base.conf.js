@@ -9,11 +9,22 @@ function resolve(dir) {
 
 module.exports = {
   entry: {
-    app: './src/main.js'
+    app: './src/main.js',
+    vendor: [
+      'vue',
+      'vue-router',
+      'vuex',
+      'muse-ui',
+      'jsonp',
+      'fastclick',
+      'vue-awesome-swiper',
+      'vue-scroller',
+      'vue-lazyload',
+    ]
   },
   output: {
     path: config.build.assetsRoot,
-    filename: '[name].js',
+    filename: '[name].[chunckhash].js',
     publicPath: process.env.NODE_ENV === 'production' ?
       config.build.assetsPublicPath : config.dev.assetsPublicPath
   },
@@ -35,13 +46,13 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: resolve('src')
       },
       {
         test: /\.txt$/,
         use: 'raw-loader'
       },
-       {
+      {
         test: /\.less$/,
         loader: "style-loader!css-loader!less-loader"
       },

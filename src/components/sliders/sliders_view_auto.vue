@@ -2,13 +2,15 @@
   <div class="slider">
     <swiper :options="swiperOption">
       <swiper-slide v-for="item,index in imgArr" :key="index">
-        <div class="swi-item">
-          <img :src="item.image" alt="">
-          <p class="c-base">
-            <mu-icon value="star" />
-            <span>{{item.collect_count}}想看</span>
-          </p>
-        </div>
+        <router-link :to="{name:'detail',params:{id:item.id}}">
+          <div class="swi-item">
+            <img v-lazy="item.images.medium" alt="">
+            <p class="c-base">
+              <mu-icon value="star" />
+              <span>{{item.collect_count}}想看</span>
+            </p>
+          </div>
+        </router-link>
       </swiper-slide>
     </swiper>
   </div>
@@ -42,8 +44,7 @@ export default {
   overflow: hidden;
   img {
     width: 100%;
-    max-height: 100%;
-    height: auto;
+    height: 100%;
   }
   p {
     position: absolute;

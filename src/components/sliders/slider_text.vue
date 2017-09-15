@@ -1,9 +1,9 @@
 <template>
   <div class="slider">
-    <swiper :options="swiperOption">
-      <swiper-slide v-for="item,index in imgTextarr" :key="index">
+    <swiper :options="swiperOption" v-if="imgTextarr[0].name">
+      <swiper-slide v-for="item,index in nextArr" :key="index">
         <div class="swi-item">
-          <img :src="item.avatars.medium" alt="">
+          <img v-lazy="item.avatars.medium" alt="item.avatars.medium">
           <p class="swi-text "><span v-text="index==0 ? '导演' : '主演'" class="c-ccc"></span> {{item.name}}</p>
         </div>
       </swiper-slide>
@@ -14,6 +14,7 @@
 export default {
   data() {
     return {
+      nextArr: [],
       swiperOption: {
         slidesPerView: 3,
         paginationClickable: true,
@@ -22,7 +23,15 @@ export default {
       }
     }
   },
-  props: ['imgTextarr']
+  props: ['imgTextarr'],
+  mounted() {
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.nextArr = this.imgTextarr
+        console.log(this.imgTextarr[0].length, 'imgTextarr', this.nextArr)
+      }, 1000)
+    })
+  }
 }
 
 </script>
@@ -45,9 +54,9 @@ export default {
   }
   .swi-text {
     width: 100%;
-    white-space:nowrap;
-    text-overflow:ellipsis;
-    overflow:hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
 

@@ -1,19 +1,21 @@
 <template>
   <div class="wrap">
+    <!-- head -->
     <mu-appbar title="Better-Life">
       <mu-icon-button icon="menu" slot="left" />
       <mu-icon-button icon="search" slot="right" />
     </mu-appbar>
     <bannerHead :bannerImgArr="bannerImgArr"></bannerHead>
+    <!-- 搜索&收藏 -->
     <div class="content">
-      <div class="collection m-t ">
+      <div class="collection m-t">
         <mu-flexbox>
           <mu-flexbox-item class="flex-demo">
             <mu-row class="item">
               <mu-col width="30">
                 <mu-icon-button icon="search" />
               </mu-col>
-              <mu-col width="60">
+              <mu-col width="60" class="text-sm">
                 <p>今天搜点啥~</p>
                 <p class="text-xs">科幻/悬疑/喜剧</p>
               </mu-col>
@@ -25,7 +27,7 @@
           <mu-flexbox-item class="flex-demo">
             <mu-row class="item">
               <mu-col width="30">
-                <mu-icon-button icon="favorite" />
+                <mu-icon-button icon="favorite_border" />
               </mu-col>
               <mu-col width="60">
                 <p>我的收藏</p>
@@ -36,51 +38,51 @@
           </mu-flexbox-item>
         </mu-flexbox>
       </div>
+      <!-- 热映 -->
       <div class="list-title clearfix">
         <span class="pull-left text-md m-l-sm">正在热映</span>
         <span class="pull-right text-sm">全部<strong class="m-l-xs m-r-xs c-base">{{hotTotal}}</strong> > </span>
       </div>
       <sliderView :imgArr="bannerImgArr"></sliderView>
+      <!-- tab -->
       <tableList></tableList>
+      <!-- 列表 -->
       <div class="list-title clearfix">
         <span class="pull-left text-md m-l-sm">即将上映</span>
-        <span class="pull-right text-sm">全部<strong class="m-l-xs m-r-xs c-base">{{commingSoon}}</strong> > </span>
+        <span class="pull-right text-sm">全部<strong class="m-l-xs m-r-xs c-base">{{commingTotal}}</strong> > </span>
       </div>
-      <div class="banner">
-        <ul class="clearfix">
-          <li v-for="tile, index in listComming">
-            <img :src="tile.image" />
-            <p class="text">
-              {{tile.title}} <i>by</i> {{tile.author}}
-            </p>
-            <span class="label c-base">{{tile.collect_count}}人已看过</span>
-          </li>
-        </ul>
-      </div>
+      <homeList :homeListArr="listCommingList"></homeList>
     </div>
   </div>
 </template>
 <script>
 import bannerHead from '@com/sliders/banner'
 import sliderView from '@com/sliders/sliders_view_auto'
-import tableList from '@com/table'
-import { hotUrl, getUrlData, dealDou } from '@/utils'
+import tableList from '@com/common/table'
+import homeList from '@com/common/home_list'
+import { hotUrl, commingUrl, getUrlData, dealDou } from '@/utils'
 export default {
   data() {
     return {
       bannerImgArr: [],
       searchStatus: false,
       hotTotal: 0,
-      commingSoon: 0,
-      listComming: []
+      commingTotal: 0,
+      listCommingList: [],
     }
   },
-  components: { bannerHead, sliderView, tableList },
+  components: { bannerHead, sliderView, tableList, homeList },
   created() {
-    let urlHot = hotUrl()
+    let urlHot = hotUrl(),
+      urlComming = commingUrl(0, 10)
     this.getData(urlHot, (arr, total) => {
       this.bannerImgArr = arr
       this.hotTotal = total
+    })
+
+    this.getData(urlComming, (arr, total) => {
+      this.listCommingList = arr
+      this.commingTotal = total
     })
   },
   methods: {

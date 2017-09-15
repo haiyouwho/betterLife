@@ -76,7 +76,7 @@ export default {
 }
 
 .bounce-enter {
-  animation: bounce-in .5s;
+  animation: bounce-in 2s;
 }
 
 .bounce-leave-active {
@@ -85,7 +85,7 @@ export default {
   left: 0;
   z-index: -1;
   width: 100%;
-  animation: bounce-out .5s;
+  animation: bounce-out 2s;
 }
 
 @keyframes bounce-in {

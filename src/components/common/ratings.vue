@@ -2,6 +2,7 @@
   <div class="ratings_" v-if="rating">
     <mu-icon v-for="(item,index) in starArr" :value="item" :keys="index" />
   </div>
+  <span v-else="rating">暂无评分</span>
 </template>
 <script>
 export default {

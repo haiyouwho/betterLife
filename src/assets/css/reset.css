@@ -220,3 +220,16 @@ a {
 .m-r-lg {
   margin-right: 1rem;
 }
+
+.p-box{
+  padding: .5rem;
+}
+.p-xs{
+  padding: .25rem;
+}
+.p-md{
+  padding: .75rem;
+}
+.p-lg{
+  padding: 1rem;
+}
