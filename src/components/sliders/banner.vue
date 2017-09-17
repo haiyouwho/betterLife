@@ -5,7 +5,7 @@
         <router-link :to="{name:'detail',params:{id:item.id}}">
           <div class="swi-item">
             <img v-lazy="item.images.large">
-            <p>{{item.title}} <span class="c-base text-b">by</span> {{item.author}}</p>
+            <p>{{item.title}} <span class="c-base text-b">by</span> {{item.directors[0].name}}</p>
           </div>
         </router-link>
       </swiper-slide>
@@ -70,7 +70,7 @@ export default {
   p {
     position: absolute;
     left: 0;
-    top: 5.5rem;
+    top: .25rem;
     z-index: 999;
     padding: .2rem .5rem;
     line-height: 1rem;
