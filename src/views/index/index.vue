@@ -1,13 +1,8 @@
 <template>
   <div>
     <div class="index-box">
-      <transition name="bounce">
-        <keep-alive>
-          <router-view v-if="$route.meta.keepAlive"></router-view>
-        </keep-alive>
-      </transition>
-      <transition name="bounce">
-        <router-view v-if="!$route.meta.keepAlive"></router-view>
+      <transition name="bounce" mode="out-in">
+        <router-view></router-view>
       </transition>
     </div>
     <div class="footer">
@@ -26,13 +21,16 @@
 export default {
   data() {
     return {
-      bottomNav: 'home',
-      bottomNavColor: 'home'
+      bottomNav: 'home'
     }
   },
   methods: {
     handleChange(val) {
-      this.bottomNav = val
+      console.log(val)
+      setTimeout(() => {
+        console.log('setTimeout handleChange:',val)
+        this.bottomNav = val
+      }, 500)
     }
   }
 }
@@ -44,7 +42,6 @@ export default {
   height: 100%;
   padding-bottom: 2.5rem;
   overflow-x: hidden;
-  overflow-y: auto;
 }
 
 .footer {
@@ -64,56 +61,6 @@ export default {
 
 .text-big {
   font-size: 3rem;
-}
-
-.router-link-active {
-  display: block;
-  width: 100%;
-  span,
-  i {
-    color: #009688;
-  }
-}
-
-.bounce-enter {
-  animation: bounce-in 2s;
-}
-
-.bounce-leave-active {
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  width: 100%;
-  animation: bounce-out 2s;
-}
-
-@keyframes bounce-in {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: .1;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes bounce-out {
-  0% {
-    opacity: 1;
-    -webkit-transform: translate(0, 0);
-    transform: translate(0, 0);
-  }
-  50% {
-    opacity: .1;
-  }
-  100% {
-    opacity: 0;
-    -webkit-transform: translate(0, 30px);
-    transform: translate(0, 30px);
-  }
 }
 
 .appbar-search-field {

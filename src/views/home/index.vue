@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div class="wrap" ref="home_box">
     <!-- head -->
     <mu-appbar title="Better-Life">
       <mu-icon-button icon="menu" slot="left" />
@@ -60,7 +60,8 @@ import bannerHead from '@com/sliders/banner'
 import sliderView from '@com/sliders/sliders_view_auto'
 import tableList from '@com/common/table'
 import homeList from '@com/common/home_list'
-import { hotUrl, commingUrl, getUrlData, dealDou } from '@/utils'
+import { hotUrl, commingUrl, getUrlData, dealDou, getScrollTop, setScrollTop } from '@/utils'
+import { mapState, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -79,14 +80,25 @@ export default {
       this.bannerImgArr = arr
       this.hotTotal = total
     })
-
     this.getData(urlComming, (arr, total) => {
       this.listCommingList = arr
       this.commingTotal = total
     })
   },
+  computed: mapState([
+    'homeScroll'// 映射 this.homeScroll 为 store.state.homeScroll
+  ]),
+  activated() {//创建的时候滚动到上次的位置
+    setScrollTop(this.homeScroll)
+  },
+  deactivated() {//销毁的时候记录滚动位置
+    this.setScroll(getScrollTop())
+  },
   methods: {
-    search() {},
+    ...mapMutations([
+      'setScroll', // 映射 this.setScroll() 为 this.$store.commit('setScroll')
+      'getScroll'
+    ]),
     getData(url, callback) { //获取数据
       let me = this
       getUrlData(me, url, function(data) {

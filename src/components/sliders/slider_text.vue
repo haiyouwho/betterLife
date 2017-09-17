@@ -23,15 +23,7 @@ export default {
       }
     }
   },
-  props: ['imgTextarr'],
-  mounted() {
-    this.$nextTick(() => {
-      setTimeout(() => {
-        this.nextArr = this.imgTextarr
-        console.log(this.imgTextarr[0].length, 'imgTextarr', this.nextArr)
-      }, 1000)
-    })
-  }
+  props: ['imgTextarr']
 }
 
 </script>

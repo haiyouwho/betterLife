@@ -40,6 +40,7 @@
 </template>
 <script>
 import ratings from '@com/common/ratings'
+import { getScrollTop,setScrollTop } from '@/utils'
 export default {
   data() {
     return {}
@@ -47,20 +48,6 @@ export default {
   props: ['homeListArr'],
   components: {
     'v-ratings': ratings
-  },
-  activated() {
-    // let top = +this.count
-    // if (top >= 0) {
-    //   this.remeberScroll(-1)
-    //   this.$refs.viewList.scrollTop = top
-    // } else {
-    //   this.remeberScroll(0)
-    // }
-    this.$refs.viewList.scrollTop = 100
-  },
-  deactivated() {
-    console.log(this.$refs.viewList.scrollTop,'scrollTop')
-    // this.remeberScroll(this.$refs.viewBox.scrollTop)
   }
 }
 

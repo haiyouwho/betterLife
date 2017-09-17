@@ -8,51 +8,49 @@
         <mu-menu-item title="菜单 3" />
       </mu-icon-menu>
     </mu-appbar>
-    <scroller ref="my_scroller">
-      <div class="banner">
-        <img :src="obj.images.large" alt="">
+    <div class="banner">
+      <img :src="obj.images.large" alt="">
+    </div>
+    <div class="info">
+      <mu-row>
+        <mu-col width="70" class="text-left item">
+          <h2>{{obj.title}}</h2>
+          <p>
+            <span>{{obj.year}}</span> /
+            <span>{{obj.genres.join(' / ')}}</span>
+          </p>
+          <p>原名：<span>{{obj.original_title}}</span></p>
+          <p>上映时间：<span>{{obj.mainland_pubdate}}</span>中国大陆</p>
+          <p>片长：<span>{{obj.durations || '暂无'}}</span></p>
+        </mu-col>
+        <mu-col width="30">
+          <div class="ratings text-center">
+            <p>豆瓣评分</p>
+            <h1>{{obj.rating.average}}</h1>
+            <p>{{obj.ratings_count}}人</p>
+            <v-ratings :rating="obj.rating.average"></v-ratings>
+          </div>
+        </mu-col>
+      </mu-row>
+      <mu-row class="m-t-lg">
+        <mu-col width="40">
+          <mu-raised-button class="rating-btn" label="看过" labelPosition="before" :fullWidth="true" icon="star_border" color="#FFAC2D" />
+        </mu-col>
+        <mu-col width="50">
+          <mu-raised-button label="想看" icon="favorite_border" rippleColor="red" color="#FFAC2D" :fullWidth="true" />
+        </mu-col>
+      </mu-row>
+    </div>
+    <div class="sec">
+      <div class="title">简介</div>
+      <div class="content">{{obj.summary}}</div>
+    </div>
+    <div class="sec">
+      <div class="title">影人</div>
+      <div class="content">
+        <v-slider :imgTextarr="actorArr"></v-slider>
       </div>
-      <div class="info">
-        <mu-row>
-          <mu-col width="70" class="text-left item">
-            <h2>{{obj.title}}</h2>
-            <p>
-              <span>{{obj.year}}</span> /
-              <span>{{obj.genres.join(' / ')}}</span>
-            </p>
-            <p>原名：<span>{{obj.original_title}}</span></p>
-            <p>上映时间：<span>{{obj.mainland_pubdate}}</span>中国大陆</p>
-            <p>片长：<span>{{obj.durations || '暂无'}}</span></p>
-          </mu-col>
-          <mu-col width="30">
-            <div class="ratings text-center">
-              <p>豆瓣评分</p>
-              <h1>{{obj.rating.average}}</h1>
-              <p>{{obj.ratings_count}}人</p>
-              <v-ratings :rating="obj.rating.average"></v-ratings>
-            </div>
-          </mu-col>
-        </mu-row>
-        <mu-row class="m-t-lg">
-          <mu-col width="40">
-            <mu-raised-button class="rating-btn" label="看过" labelPosition="before" :fullWidth="true" icon="star_border" color="#FFAC2D" />
-          </mu-col>
-          <mu-col width="50">
-            <mu-raised-button label="想看" icon="favorite_border" rippleColor="red" color="#FFAC2D" :fullWidth="true" />
-          </mu-col>
-        </mu-row>
-      </div>
-      <div class="sec">
-        <div class="title">简介</div>
-        <div class="content">{{obj.summary}}</div>
-      </div>
-      <div class="sec">
-        <div class="title">影人</div>
-        <div class="content">
-          <v-slider :imgTextarr="actorArr"></v-slider>
-        </div>
-      </div>
-    </scroller>
+    </div>
   </div>
 </template>
 <script>
@@ -65,10 +63,7 @@ export default {
       obj: {},
       title: '',
       actorArr: [],
-      scroll: 0,
       opticay: 'rgba(119,119,119,1)',
-      y: 0,
-      timer: null
     }
   },
   beforeRouteEnter(to, from, next) {
@@ -93,11 +88,8 @@ export default {
     'v-ratings': ratings
   },
   mounted() {
-    this.$nextTick(function() {
-      setTimeout(() => {
-        this.getDom()
-      }, 1000)
-    })
+    window.addEventListener('scroll', this.onScroll)
+    console.log('mounted')
   },
   methods: {
     goback() {
@@ -108,17 +100,14 @@ export default {
       this.actorArr = this.obj.casts
       this.actorArr.unshift(this.obj.directors[0])
     },
-    getDom() {
-      this.timer = setInterval(() => {
-        let { left, top } = this.$refs.my_scroller.getPosition()
-        this.y = top
-        this.changeOpticay()
-        if (top > 300) {
-          this.changeTitle()
-        } else {
-          this.changeTitle(`短评总数：${this.obj.comments_count}`)
-        }
-      }, 100)
+    onScroll() {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+      this.changeOpticay()
+      if (top > 300) {
+        this.changeTitle()
+      } else {
+        this.changeTitle(`短评总数：${this.obj.comments_count}`)
+      }
     },
     changeTitle(str = this.obj.title) {
       this.title = str
@@ -129,15 +118,16 @@ export default {
     }
   },
   beforeDestroy() {
-    clearInterval(this.timer)
+    window.removeEventListener('scroll', this.onScroll)
   }
 }
 
 </script>
 <style lang="scss" scoped>
-h1{
-  margin:.2rem 0;
+h1 {
+  margin: .2rem 0;
 }
+
 .head {
   position: fixed;
   left: 0;

@@ -22,11 +22,6 @@ function cc() {
   }
 }
 
-function getScreenHeight() {
-  var sH = window.screen.height
-  return sH
-}
-
 function setGlobalfontSize() {
   var oHtml = document.querySelector('html'),
     width = oHtml.getBoundingClientRect().width
@@ -58,6 +53,7 @@ function usboxUrl(start = 0, end = 5) {
   let url = `${sMoveBaseUrl}${sUSBox}?start=${start}&count=${end}`
   return url
 }
+
 function detailUrl(id = 1764796) {
   let url = `${sMoveBaseUrl}${sDetail}${id}`
   return url
@@ -78,8 +74,8 @@ function dealDou(data, options) {
       let castsArr = []
       val = typeof(val.title) == 'undefined' ? val.subject : val //top250的数据结构不一样
       val.genres = val.genres.join('/')
-      val.casts.forEach((v,k)=>{
-          castsArr.push(v.name)
+      val.casts.forEach((v, k) => {
+        castsArr.push(v.name)
       })
       val.castsName = castsArr.join('/')
       arr.push(val)　
@@ -87,7 +83,7 @@ function dealDou(data, options) {
       console.log('catch error:', err)　　
     }
   })
-  data = null 
+  data = null
   arr = sortArr(arr, [options.sortBy])
   return arr
 }
@@ -96,7 +92,22 @@ function sortArr(arr, way) { //数据排序，根据way来
   arr.sort((a, b) => { return b[way] - a[way] })
   return arr
 }
+//获取窗口高度
+function getScreenHeight() {
+  var sH = window.screen.height
+  return sH
+}
 
+//获取滚动条高度
+function getScrollTop() {
+  let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+  return scrollTop
+}
+
+//设置滚动条高度
+function setScrollTop(top) {
+  document.body.scrollTop = top
+}
 
 export {
   cc,
@@ -110,7 +121,9 @@ export {
   commingUrl,
   usboxUrl,
   detailUrl,
-  dealDou
+  dealDou,
+  getScrollTop,
+  setScrollTop
 }
 
 /**

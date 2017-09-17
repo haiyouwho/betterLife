@@ -1,11 +1,8 @@
 export default {
-    setCount(state, number) {
-        state.count = number
+    setScroll(state,number,target = 'homeScroll') {
+        state[target] = number
     },
-    getCount(state) {
+    getScroll(state,target = 'homeScroll') {
         return state.count
-    },
-    setReLoadList(state, status) {
-        state.reLoadList = status
     }
 }
