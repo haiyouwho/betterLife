@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 const index = r => require.ensure([], () => r(require('@/views/index')), 'index'),
   home = r => require.ensure([], () => r(require('@/views/home')), 'home'),
+  moveList = r => require.ensure([], () => r(require('@/views/home/move_list')), 'move_list'),
   live = r => require.ensure([], () => r(require('@/views/live')), 'live'),
   books = r => require.ensure([], () => r(require('@/views/books')), 'books'),
   user = r => require.ensure([], () => r(require('@/views/user')), 'user'),
@@ -22,7 +23,7 @@ export default new Router({
       path: '/',
       name: '/',
       component: index,
-      redirect: '/home',
+      redirect: '/moveList',
       children: [{
           path: 'home',
           name: 'home',
@@ -52,6 +53,11 @@ export default new Router({
       path: '/detail/:id',
       name: 'detail',
       component: detail
+    },
+    {
+      path: '/moveList',
+      name: 'moveList',
+      component: moveList
     }
   ]
 })
