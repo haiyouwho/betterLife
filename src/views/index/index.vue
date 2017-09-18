@@ -2,8 +2,16 @@
   <div>
     <div class="index-box">
       <transition name="bounce" mode="out-in">
-        <router-view></router-view>
+        <div>
+          <keep-alive v-if="$route.meta.keepAlive">
+            <router-view v-if="$route.meta.keepAlive"></router-view>
+          </keep-alive>
+          <router-view v-if="!$route.meta.keepAlive"></router-view>
+        </div>
       </transition>
+     <!--  <transition name="bounce" mode="out-in">
+        <router-view v-else></router-view>
+      </transition> -->
     </div>
     <div class="footer">
       <mu-paper>
@@ -26,11 +34,10 @@ export default {
   },
   methods: {
     handleChange(val) {
-      console.log(val)
-      setTimeout(() => {
-        console.log('setTimeout handleChange:',val)
-        this.bottomNav = val
-      }, 500)
+      console.log(val, 'val')
+      this.bottomNav = val
+      console.log(this.bottomNav, 'this.bottomNav')
+
     }
   }
 }

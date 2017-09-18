@@ -1,12 +1,15 @@
 <template>
   <div id="app">
-    <transition name="bounce" mode="out-in">
-      <keep-alive>
+   <!--  <transition name="bounce" mode="out-in">
+      <keep-alive include="home">
         <router-view v-if="$route.meta.keepAlive"></router-view>
       </keep-alive>
     </transition>
     <transition name="bounce" mode="out-in">
       <router-view v-if="!$route.meta.keepAlive"></router-view>
+    </transition> -->
+    <transition name="bounce" mode="out-in">
+      <router-view></router-view>
     </transition>
   </div>
 </template>
@@ -49,9 +52,9 @@ export default {
   0% {
     opacity: 0;
   }
-  50% {
+  /*   50% {
     opacity: .1;
-  }
+  } */
   100% {
     opacity: 1;
   }
@@ -63,9 +66,9 @@ export default {
     -webkit-transform: translate(0, 0);
     transform: translate(0, 0);
   }
-  50% {
+  /*   50% {
     opacity: .3;
-  }
+  } */
   100% {
     opacity: .1;
     -webkit-transform: translate(0, 30px);
