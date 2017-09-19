@@ -14,26 +14,30 @@
           <mu-tab value="tab3" title="类型" @click="tabClick('tab3')" />
           <mu-tab value="tab4" title="特色" @click="tabClick('tab4')" />
         </mu-tabs>
-        <div v-if="activeTab === 'tab1'">
-          <p>这是第一个 tab</p>
-          <p>这是第一个 tab</p>
-          <p>这是第一个 tab</p>
-          <p>这是第一个 tab</p>
-        </div>
-        <div v-if="activeTab === 'tab2'">
-          <p>
-            这是第二个 tab
-          </p>
-        </div>
-        <div v-if="activeTab === 'tab3'">
-          <p>
-            这是第三个 tab
-          </p>
-        </div>
-        <div v-if="activeTab === 'tab4'">
-          <p>
-            这是第4个 tab
-          </p>
+        <div class="f-item p-box">
+          <transition-group mode="out-in">
+            <div class="tab" v-if="activeTab === 'tab1'" :key="1">
+              <p>这是第一个 tab</p>
+              <p>这是第一个 tab</p>
+              <p>这是第一个 tab</p>
+              <p>这是第一个 tab</p>
+            </div>
+            <div class="tab" v-if="activeTab === 'tab2'" :key="2">
+              <p>
+                这是第二个 tab
+              </p>
+            </div>
+            <div class="tab" v-if="activeTab === 'tab3'" :key="3">
+              <p>
+                这是第三个 tab
+              </p>
+            </div>
+            <div class="tab" v-if="activeTab === 'tab4'" :key="4">
+              <p>
+                这是第4个 tab
+              </p>
+            </div>
+          </transition-group>
         </div>
       </div>
     </div>
@@ -49,8 +53,8 @@ export default {
   },
   computed: {
     fliterBG: function() {
-    	console.log(this.flterOn)
-    	return this.flterOn ? 'rgba(0,0,0,.5)':'#FFF'
+      console.log(this.flterOn)
+      return this.flterOn ? 'rgba(0,0,0,.5)' : '#FFF'
     }
   },
   methods: {
@@ -58,7 +62,7 @@ export default {
       this.$router.goback()
     },
     tabClick(val) {
-    	console.log(val === this.activeTab , 'tabClick')
+      console.log(val === this.activeTab, 'tabClick')
       if (val === this.activeTab) {
         this.flterOn = false
         this.activeTab = ''
@@ -93,12 +97,7 @@ export default {
 }
 
 .f-item {
-  @include bl-1px(#ccc, 1.5rem);
-  height: 2rem;
-  line-height: 2rem;
-  margin: 0 !important;
-  color: $ft-basec;
-  text-align: center;
+  background: #fff;
 }
 
 .f-item.no-border {
