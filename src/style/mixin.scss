@@ -1,5 +1,8 @@
 $base-c:#00AE66;
 $ft-basec:#555;
+$base-act:#00897b;
+$base-act-l:#b2dfdb;
+$base-act-d:#00796b;
 @mixin bl-1px($cl, $height:90%) {
   position: relative;
   &:before {
