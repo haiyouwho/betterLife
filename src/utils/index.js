@@ -54,11 +54,20 @@ function usboxUrl(start = 0, end = 5) {
   return url
 }
 
-function detailUrl(id = 1764796) {
+function detailUrl(id) {
   let url = `${sMoveBaseUrl}${sDetail}${id}`
   return url
 }
-/*
+
+//搜索url
+function searchUrl(obj,start = 0, end = 10) {
+  console.log(obj, 'obj')
+  let byName = obj.name ? `movie/search?q=${obj.name}&start=${start}&count=${end}` : null,
+    byType = obj.type ? `movie/search?tag=${obj.type}&start=${start}&count=${end}` : null,
+    url = sMoveBaseUrl + (byName ? byName : byType)
+  return url
+}
+/*  处理豆瓣数据
  ** @params data 请求到的数据
  ** @params options 处理的配置
  ** @params options.sortBy 数据排序依据
@@ -109,6 +118,7 @@ function setScrollTop(top) {
   document.body.scrollTop = top
 }
 
+
 export {
   cc,
   getScreenHeight,
@@ -121,6 +131,7 @@ export {
   commingUrl,
   usboxUrl,
   detailUrl,
+  searchUrl,
   dealDou,
   getScrollTop,
   setScrollTop

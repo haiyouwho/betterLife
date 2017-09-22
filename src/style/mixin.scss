@@ -1,5 +1,19 @@
-$base-c:#00AE66;
-$ft-basec:#555;
+$ft-light:#888;         //字体浅色
+$ft-basec:#555;         //字体一般颜色
+$text-xs:.6rem;         //字体大小
+$text-xs-a:.65rem;
+$text-sm:.7rem;
+$text-sm-a:.75rem;
+$text-md:.8rem;
+$text-md-a:.85rem;
+$text-lg:.9rem;
+$text-lg-a:.95rem;
+$text-a:1rem;
+$base-act:#00897b;       //激活颜色
+$base-act-l:#b2dfdb;     //激活浅色
+$base-act-d:#00796b;     //激活深色
+$border-act:#FF4081;     //激活边框颜色
+
 @mixin bl-1px($cl, $height:90%) {
   position: relative;
   &:before {
@@ -16,10 +30,27 @@ $ft-basec:#555;
     -webkit-transform: scaleY(.5);
   }
 }
-@mixin no-border() {
-  &:before,
-  &:after{
-    display:none;
+
+@mixin bor-active($cl, $size) {
+  position: relative;
+  border-right: 2px solid $cl;
+  &::after {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    z-index: 999999;
+    content: '';
+    width:$size;
+    height:$size;
+    margin-top: -$size/2;
+    border:$size/2 solid $cl;
+    border-color: transparent $cl transparent transparent;
   }
 }
 
+@mixin no-border() {
+  &:before,
+  &:after {
+    display: none;
+  }
+}
