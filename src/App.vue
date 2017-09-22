@@ -1,13 +1,5 @@
 <template>
   <div id="app">
-   <!--  <transition name="bounce" mode="out-in">
-      <keep-alive include="home">
-        <router-view v-if="$route.meta.keepAlive"></router-view>
-      </keep-alive>
-    </transition>
-    <transition name="bounce" mode="out-in">
-      <router-view v-if="!$route.meta.keepAlive"></router-view>
-    </transition> -->
     <transition name="bounce" mode="out-in">
       <router-view></router-view>
     </transition>
@@ -17,7 +9,6 @@
 export default {
   name: 'app'
 }
-
 </script>
 <style>
 #app {
