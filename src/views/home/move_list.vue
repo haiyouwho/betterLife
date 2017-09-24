@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    <div class="filter-head" @click="closeMadel" :style="{background:fliterBG}">
+    <div class="filter-head" @click="closeMadel">
       <div class="head">
         <mu-appbar :title="selectName">
           <mu-icon-button icon="keyboard_arrow_left" slot="left" @click="goback" />
@@ -47,6 +47,9 @@
         </div>
       </div>
     </div>
+    <div class="content">
+      <v-homeList :homeListArr="listData"></v-homeList>
+    </div>
     <div class="text-center">
     <mu-toast class="toast" v-if="toast" message="请稍后，正在拼命加载..." @close="hideToast" />
     </div>
@@ -54,16 +57,18 @@
 </template>
 <script>
 import { searchUrl, getUrlData } from '@/utils'
+import homeList from '@com/common/home_list'
 export default {
   data() {
     return {
       filterOn: false,
-      activeTab: 'tab4',
+      activeTab: '',
       activeActs: [],
       typeIndex: 0,
       selectName: '找影视',
       loadingData: false,
       toast: false,
+      listData:[],
       acts: [{
           'type': '电视剧',
           'names': ['吴秀波', '胡歌', '张靓颖', '林更新']
@@ -86,11 +91,15 @@ export default {
       features: ['全部', '经典', '豆瓣高分', '冷门佳片', '自定义标签']
     }
   },
-  computed: {
-    fliterBG: function() {
-      return this.filterOn ? 'rgba(0,0,0,.5)' : '#FFF'
-    }
-  },
+  components: { 'v-homeList':homeList },
+  // computed: {
+  //   fliterBG: function() {
+  //     return this.filterOn ? '#FFF' : '#FFF'
+  //   }
+  // },
+  created(){
+      this.searchName('热映')
+    },
   mounted() {
     this.init()
   },
@@ -138,7 +147,8 @@ export default {
       } else {
         this.loadingData = true
         getUrlData(this,url, (data) => {
-          console.log(data,666)
+          this.listData = data.subjects
+          this.loadingData = false
         })
       }
 
@@ -155,8 +165,7 @@ export default {
   left: 0;
   z-index: 1;
   width: 100%;
-  height: 100%;
-  background: #fff;
+  background: transparent;
 }
 
 .head {
@@ -170,11 +179,12 @@ export default {
 .f-item {
   max-height: 10rem;
   border-radius: 0 0 2rem 2rem;
-  background: #fff;
+  background: rgba(0,0,0,.8);
   overflow-y: auto;
   .i-type {
     margin: .25rem 0;
     padding: .1rem 0;
+    color: #fff;
     &.active {
       color: $base-act;
       @include bor-active($border-act, 10px);
@@ -206,6 +216,9 @@ export default {
 
 .f-item.no-border {
   @include no-border();
+}
+.content{
+  padding-top: 4.4rem;
 }
 .toast{
   bottom:1rem;
