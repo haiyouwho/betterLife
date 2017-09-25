@@ -28,42 +28,49 @@ function setGlobalfontSize() {
   oHtml.style.fontSize = width / 18.75 > 20 ? width / 18.75 + 'px' : '20px'
 }
 
+/*
+* @params : obj this
+* @params : start 开始条目
+* @params : end   结束条目
+*/
 function getUrlData(obj, url, callback) {
   obj.jsonp(url, null, function(err, data) {
     err ? console.log(err) : callback(data)
   })
 }
-
+//热映
 function hotUrl(start = 0, end = 5) {
   let url = `${sMoveBaseUrl}${sMoveInHot}?start=${start}&count=${end}`
   return url
 }
-
+//top250
 function top250Url(start = 0, end = 5) {
   let url = `${sMoveBaseUrl}${sTop250}?start=${start}&count=${end}`
   return url
 }
-
+//即将上映
 function commingUrl(start = 0, end = 5) {
   let url = `${sMoveBaseUrl}${sComingSoonUrl}?start=${start}&count=${end}`
   return url
 }
-
+//北美排行榜
 function usboxUrl(start = 0, end = 5) {
   let url = `${sMoveBaseUrl}${sUSBox}?start=${start}&count=${end}`
   return url
 }
-
+//详情
 function detailUrl(id) {
   let url = `${sMoveBaseUrl}${sDetail}${id}`
   return url
 }
-
-//搜索url
-function searchUrl(obj,start = 0, end = 10) {
-  console.log(obj, 'obj')
-  let byName = obj.name ? `movie/search?q=${obj.name}&start=${start}&count=${end}` : null,
-    byType = obj.type ? `movie/search?tag=${obj.type}&start=${start}&count=${end}` : null,
+/*
+*  搜索url
+* @params : obj.name 搜索名字（优先）
+* @params : obj.type 搜索类型
+*/
+function searchUrl(obj,start = 0, count = 10) {
+  let byName = obj.name ? `movie/search?q=${obj.name}&start=${start}&count=${count}` : null,
+    byType = obj.type ? `movie/search?tag=${obj.type}&start=${start}&count=${count}` : null,
     url = sMoveBaseUrl + (byName ? byName : byType)
   return url
 }
