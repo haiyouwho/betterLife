@@ -66,8 +66,9 @@
   </div>
 </template>
 <script>
-import { searchUrl, getUrlData } from '@/utils'
+import { searchUrl, getUrlData,getScrollTop, setScrollTop} from '@/utils'
 import homeList from '@com/common/home_list'
+import { mapState, mapMutations } from 'vuex'
 export default {
   data() {
     return {
@@ -88,21 +89,21 @@ export default {
       loadingData: false, //是否获取数据中
       scroller: window, //监听滚动对象
       acts: [{ //tab数组
-          'type': '电视剧',
-          'names': ['吴秀波', '胡歌', '张靓颖', '林更新']
-        },
-        {
-          'type': '综艺',
-          'names': ['黄渤', '黄磊', '孙红雷', '何炅']
-        },
-        {
-          'type': '小鲜肉',
-          'names': ['吴亦凡', '鹿晗', 'TFboys']
-        },
-        {
-          'type': '脱口秀',
-          'names': ['汪涵', '田源', '欧弟']
-        }
+        'type': '电视剧',
+        'names': ['吴秀波', '胡歌', '张靓颖', '林更新']
+      },
+      {
+        'type': '综艺',
+        'names': ['黄渤', '黄磊', '孙红雷', '何炅']
+      },
+      {
+        'type': '小鲜肉',
+        'names': ['吴亦凡', '鹿晗', 'TFboys']
+      },
+      {
+        'type': '脱口秀',
+        'names': ['汪涵', '田源', '欧弟']
+      }
       ],
       area: ['全部', '大陆', '美国', '香港', '台湾', '日本', '韩国', '德国', '泰国', '意大利', '英国', '法国', '俄罗斯'],
       types: ['全部', '剧情', '爱情', '喜剧', '科幻', '动作', '悬疑', '犯罪', '恐怖', '青春', '励志', '文艺', '战争'],
@@ -110,11 +111,15 @@ export default {
     }
   },
   components: { 'v-homeList': homeList },
-  // computed: {
-  //   fliterBG: function() {
-  //     return this.filterOn ? '#FFF' : '#FFF'
-  //   }
-  // },
+  computed: mapState([
+    'homeScroll'// 映射 this.homeScroll 为 store.state.homeScroll
+    ]),
+  activated() {//创建的时候滚动到上次的位置
+    setScrollTop(this.homeScroll)
+  },
+  deactivated() {//销毁的时候记录滚动位置
+    this.setScroll(getScrollTop())
+  },
   created() {
     this.searchName('全部')
   },
@@ -122,6 +127,10 @@ export default {
     this.init()
   },
   methods: {
+   ...mapMutations([
+      'setScroll', // 映射 this.setScroll() 为 this.$store.commit('setScroll')
+      'getScroll'
+      ]),
     init() { //初始化
       this.filterOn = this.activeTab == '' ? false : true
       this.activeActs = this.acts[0].names
@@ -133,7 +142,7 @@ export default {
       this.toast = true
       this.toastStr = str
       if (this.toastTimer) clearTimeout(this.toastTimer)
-      this.toastTimer = setTimeout(() => { this.toast = false }, time)
+        this.toastTimer = setTimeout(() => { this.toast = false }, time)
     },
     hideToast() { //隐藏提示
       this.toast = false
@@ -149,9 +158,9 @@ export default {
     },
     handleInput(val) { //搜索提示
       this.dataSource = [
-        val,
-        val + val,
-        val + val + val
+      val,
+      val + val,
+      val + val + val
       ]
     },
     tabClick(val) { //tab栏开关

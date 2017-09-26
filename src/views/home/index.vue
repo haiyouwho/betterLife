@@ -96,6 +96,9 @@ export default {
   deactivated() {//销毁的时候记录滚动位置
     this.setScroll(getScrollTop())
   },
+  beforeDestroy(){
+    setScrollTop(0)
+  },
   methods: {
     ...mapMutations([
       'setScroll', // 映射 this.setScroll() 为 this.$store.commit('setScroll')
