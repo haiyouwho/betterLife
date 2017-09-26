@@ -1,24 +1,40 @@
 <template>
-<mu-paper>
-  <mu-bottom-nav :value="bottomNav" @change="handleChange">
-    <mu-bottom-nav-item value="recents" title="Recents" icon="restore"/>
-    <mu-bottom-nav-item value="favorites" title="Favorites" icon="favorite"/>
-    <mu-bottom-nav-item value="nearby" title="Nearby" icon="location_on"/>
-  </mu-bottom-nav>
-</mu-paper>
+  <div class="wrap">
+    <p>正在努力上线中。。。</p>
+    <div class="footer">
+      <mu-paper>
+        <mu-bottom-nav value="books" shift>
+          <mu-bottom-nav-item to="home" value="home" title="Home" icon="lightbulb_outline" />
+          <mu-bottom-nav-item to="live" value="live" title="Live" icon="video_library" />
+          <mu-bottom-nav-item to="books" value="books" title="Books" icon="books" />
+          <mu-bottom-nav-item to="user" value="user" title="User" icon="face" />
+        </mu-bottom-nav>
+      </mu-paper>
+    </div>
+  </div>
 </template>
-
 <script>
 export default {
-  data () {
+  data() {
     return {
-      bottomNav: 'recents'
-    }
-  },
-  methods: {
-    handleChange (val) {
-      this.bottomNav = val
+
     }
   }
 }
+
 </script>
+<style lang="scss" scoped>
+.wrap {
+  width: 100%;
+  height: 100%;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+}
+
+</style>

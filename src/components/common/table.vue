@@ -58,6 +58,7 @@ export default {
   created() {
     this.tabChangTo('Top 250', 1)
     this.tabCurrentName('Top 250')
+    console.log('tabs created')
   },
   methods: {
     tabAnimation(index) { //点击按钮开始动画，并且获取数据

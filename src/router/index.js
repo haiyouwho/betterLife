@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import App from '../App'
 
 const index = r => require.ensure([], () => r(require('@/views/index')), 'index'),
   home = r => require.ensure([], () => r(require('@/views/home')), 'home'),
@@ -18,49 +19,51 @@ Router.prototype.goback = function() {
 Vue.use(Router)
 
 export default new Router({
-  mode: 'hash',
+  // mode: 'hash',
   routes: [{
-      path: '/',
-      name: '/',
-      component: index,
-      redirect: '/user',
-      meta: {
-        keepAlive: true
+    path: '/',
+    name: '/',
+    component: App,
+    children: [
+      //地址为空时跳转home页面
+      {
+        path: '',
+        redirect: '/home'
       },
-      children: [{
-          path: 'home',
-          name: 'home',
-          component: home
-        },
-        {
-          path: 'live',
-          name: 'live',
-          component: live
-        },
-        {
-          path: 'books',
-          name: 'books',
-          component: books
-        },
-        {
-          path: 'user',
-          name: 'user',
-          component: user
+      {
+        path: 'home',
+        name: 'home',
+        component: home,
+        meta: { keepAlive: true },
+      },
+      {
+        path: 'live',
+        name: 'live',
+        component: live
+      },
+      {
+        path: 'books',
+        name: 'books',
+        component: books
+      },
+      {
+        path: 'user',
+        name: 'user',
+        component: user
+      },
+      {
+        path: 'detail/:id',
+        name: 'detail',
+        component: detail
+      },
+      {
+        path: 'moveList',
+        name: 'moveList',
+        component: moveList,
+        meta: {
+          keepAlive: true
         }
-      ]
-    },
-    {
-      path: '/detail/:id',
-      name: 'detail',
-      component: detail
-    },
-    {
-      path: '/moveList',
-      name: 'moveList',
-      component: moveList,
-      meta: {
-        keepAlive: true
       }
-    }
-  ]
+    ]
+  }]
 })

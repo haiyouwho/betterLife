@@ -25,6 +25,16 @@
     </div>
     <div class="tab-content">
     </div>
+    <div class="footer">
+      <mu-paper>
+        <mu-bottom-nav value="user" shift>
+          <mu-bottom-nav-item to="home" value="home" title="Home" icon="lightbulb_outline" />
+          <mu-bottom-nav-item to="live" value="live" title="Live" icon="video_library" />
+          <mu-bottom-nav-item to="books" value="books" title="Books" icon="books" />
+          <mu-bottom-nav-item to="user" value="user" title="User" icon="face" />
+        </mu-bottom-nav>
+      </mu-paper>
+    </div>
   </div>
 </template>
 <script>
@@ -95,12 +105,20 @@ export default {
   padding: 0 .5rem;
   color: #333;
   .menu-bg {
-    background:$base-act-l;
+    background: $base-act-l;
     border-radius: .5rem;
   }
-  .active{
-    color:$base-act-d;
+  .active {
+    color: $base-act-d;
   }
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
 }
 
 </style>

@@ -19,7 +19,7 @@
                 <router-link to="/moveList">
                   <p>今天搜点啥~</p>
                   <p class="text-xs">科幻/悬疑/喜剧</p>
-                </router-link> 
+                </router-link>
               </mu-col>
               <mu-col width="10">
                 <p class="arrow b-r"></p>
@@ -55,6 +55,16 @@
       </div>
       <homeList :homeListArr="listCommingList"></homeList>
     </div>
+    <div class="footer">
+      <mu-paper>
+        <mu-bottom-nav value="home" shift>
+          <mu-bottom-nav-item to="home" value="home" title="Home" icon="lightbulb_outline" />
+          <mu-bottom-nav-item to="live" value="live" title="Live" icon="video_library" />
+          <mu-bottom-nav-item to="books" value="books" title="Books" icon="books" />
+          <mu-bottom-nav-item to="user" value="user" title="User" icon="face" />
+        </mu-bottom-nav>
+      </mu-paper>
+    </div>
   </div>
 </template>
 <script>
@@ -72,43 +82,56 @@ export default {
       hotTotal: 0,
       commingTotal: 0,
       listCommingList: [],
+      loadOnce: false,
+      i: 0
     }
   },
   components: { bannerHead, sliderView, tableList, homeList },
   created() {
-    let urlHot = hotUrl(),
-    urlComming = commingUrl(0, 10)
-    this.getData(urlHot, (arr, total) => {
-      this.bannerImgArr = arr
-      this.hotTotal = total
-    })
-    this.getData(urlComming, (arr, total) => {
-      this.listCommingList = arr
-      this.commingTotal = total
-    })
+    this.init()
+    console.log(++this.i, 'created')
+  },
+  beforeMount() {
+    console.log(++this.i, 'beforeMount')
+  },
+  mounted() {
+    console.log(++this.i, 'mounted')
   },
   computed: mapState([
-    'homeScroll'// 映射 this.homeScroll 为 store.state.homeScroll
-    ]),
-  activated() {//创建的时候滚动到上次的位置
+    'homeScroll' // 映射 this.homeScroll 为 store.state.homeScroll
+  ]),
+  activated() { //创建的时候滚动到上次的位置
     setScrollTop(this.homeScroll)
   },
-  deactivated() {//销毁的时候记录滚动位置
+  deactivated() { //销毁的时候记录滚动位置
     this.setScroll(getScrollTop())
-  },
-  beforeDestroy(){
     setScrollTop(0)
+    this.init('deactivated')
+    console.log(++this.i, 'deactivated')
   },
   methods: {
     ...mapMutations([
       'setScroll', // 映射 this.setScroll() 为 this.$store.commit('setScroll')
       'getScroll'
-      ]),
+    ]),
+    init(str = '') {
+      console.log(++this.i, 'init-init', str)
+      // let urlHot = hotUrl(),
+      //   urlComming = commingUrl(0, 10)
+      // this.getData(urlHot, (arr, total) => {
+      //   this.bannerImgArr = arr
+      //   this.hotTotal = total
+      // })
+      // this.getData(urlComming, (arr, total) => {
+      //   this.listCommingList = arr
+      //   this.commingTotal = total
+      // })
+    },
     getData(url, callback) { //获取数据
       let me = this
       getUrlData(me, url, function(data) {
         let arr = [],
-        total = ''
+          total = ''
         arr = dealDou(data)
         total = typeof(data.total) == 'undefined' ? data.subjects.length : data.total
         callback(arr, total)
@@ -208,6 +231,14 @@ export default {
   .b-r {
     border-right: 1px solid #ddd;
   }
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
 }
 
 </style>
