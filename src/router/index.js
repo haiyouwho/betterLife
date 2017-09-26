@@ -57,7 +57,10 @@ export default new Router({
     {
       path: '/moveList',
       name: 'moveList',
-      component: moveList
+      component: moveList,
+      meta: {
+        keepAlive: true
+      }
     }
   ]
 })

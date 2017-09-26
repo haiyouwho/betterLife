@@ -12,9 +12,9 @@
               </mu-row>
               <div class="c-999">
                 <mu-row class="m-t-xs">
-                  <mu-col width="20">
-                    <img class="avatar" src="" v-lazy="item.casts[0].avatars.small" alt="">
-                  </mu-col>
+                 <!--  <mu-col width="20" v-if="item.casts">
+                    <img class="avatar" src="" :v-lazy="item.casts[0].avatars" alt="">
+                  </mu-col> -->
                   <mu-col width="75">
                     <p class="m-t-xs clearfix text-over">
                       <span class="pull-left">导演： {{item.directors[0].name}}</span>
@@ -40,10 +40,11 @@
 </template>
 <script>
 import ratings from '@com/common/ratings'
-import { getScrollTop,setScrollTop } from '@/utils'
+import { getScrollTop, setScrollTop } from '@/utils'
 export default {
   data() {
-    return {}
+    return {
+    }
   },
   props: ['homeListArr'],
   components: {
