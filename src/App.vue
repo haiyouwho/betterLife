@@ -1,15 +1,12 @@
 <template>
   <div id="app">
-   <!--  <transition name="bounce" mode="out-in">
-      <keep-alive include="home">
+    <transition name="bounce" mode="out-in">
+      <keep-alive>
         <router-view v-if="$route.meta.keepAlive"></router-view>
       </keep-alive>
     </transition>
     <transition name="bounce" mode="out-in">
       <router-view v-if="!$route.meta.keepAlive"></router-view>
-    </transition> -->
-    <transition name="bounce" mode="out-in">
-      <router-view></router-view>
     </transition>
   </div>
 </template>
@@ -17,7 +14,6 @@
 export default {
   name: 'app'
 }
-
 </script>
 <style>
 #app {
@@ -40,7 +36,7 @@ export default {
   }
 }
 
-.bounce-enter {
+.bounce-enterr-active  {
   animation: bounce-in .5s;
 }
 
