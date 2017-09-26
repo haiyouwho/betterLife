@@ -23,7 +23,7 @@ export default new Router({
       path: '/',
       name: '/',
       component: index,
-      redirect: '/moveList',
+      redirect: '/home',
       children: [{
           path: 'home',
           name: 'home',

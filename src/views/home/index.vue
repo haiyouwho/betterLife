@@ -16,8 +16,10 @@
                 <mu-icon-button icon="search" />
               </mu-col>
               <mu-col width="60" class="text-sm">
-                <p>今天搜点啥~</p>
-                <p class="text-xs">科幻/悬疑/喜剧</p>
+                <router-link to="/moveList">
+                  <p>今天搜点啥~</p>
+                  <p class="text-xs">科幻/悬疑/喜剧</p>
+                </router-link> 
               </mu-col>
               <mu-col width="10">
                 <p class="arrow b-r"></p>
@@ -75,7 +77,7 @@ export default {
   components: { bannerHead, sliderView, tableList, homeList },
   created() {
     let urlHot = hotUrl(),
-      urlComming = commingUrl(0, 10)
+    urlComming = commingUrl(0, 10)
     this.getData(urlHot, (arr, total) => {
       this.bannerImgArr = arr
       this.hotTotal = total
@@ -87,7 +89,7 @@ export default {
   },
   computed: mapState([
     'homeScroll'// 映射 this.homeScroll 为 store.state.homeScroll
-  ]),
+    ]),
   activated() {//创建的时候滚动到上次的位置
     setScrollTop(this.homeScroll)
   },
@@ -98,12 +100,12 @@ export default {
     ...mapMutations([
       'setScroll', // 映射 this.setScroll() 为 this.$store.commit('setScroll')
       'getScroll'
-    ]),
+      ]),
     getData(url, callback) { //获取数据
       let me = this
       getUrlData(me, url, function(data) {
         let arr = [],
-          total = ''
+        total = ''
         arr = dealDou(data)
         total = typeof(data.total) == 'undefined' ? data.subjects.length : data.total
         callback(arr, total)
