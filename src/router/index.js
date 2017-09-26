@@ -23,14 +23,14 @@ export default new Router({
       path: '/',
       name: '/',
       component: index,
-      redirect: '/home',
+      redirect: '/user',
+      meta: {
+        keepAlive: true
+      },
       children: [{
           path: 'home',
           name: 'home',
-          component: home,
-          meta: {
-            keepAlive: true
-          }
+          component: home
         },
         {
           path: 'live',

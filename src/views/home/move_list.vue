@@ -119,6 +119,7 @@ export default {
   },
   deactivated() {//销毁的时候记录滚动位置
     this.setScroll(getScrollTop())
+    setScrollTop(0)
   },
   created() {
     this.searchName('全部')
@@ -187,6 +188,7 @@ export default {
       this.searchUrl = url
       this.start = 0
       this.getSearchData(url, true)
+      setScrollTop(0)
     },
     getSearchData(url, reset) {
       if (this.start > this.total) {
