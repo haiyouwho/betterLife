@@ -8,3 +8,4 @@ git pull origin master
 git checkout le
 git merge fix
 git push origin master 
+git checkout fix
