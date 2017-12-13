@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store'
 import  '@/utils/plugins'
+// 5sd5f
 
 import { setGlobalfontSize } from '@/utils'
 setGlobalfontSize()
