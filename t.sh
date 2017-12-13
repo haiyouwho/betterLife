@@ -4,7 +4,7 @@ git add .
 echo '-------请输入commit:'
 read commitText
 echo "-------commit信息是: $commitText-------"
-git commit -m${commitText}
+git commit -m  ${commitText}
 echo "------------------commit------------------"
 git pull origin master
 git checkout le
@@ -13,7 +13,7 @@ git add .
 echo '-------请输入le分支 commit:'
 read commitTextLe
 echo "-------commit信息是: $commitTextLe-------"
-git commit -m${commitTextLe}
+git commit -m ${commitTextLe}
 git merge fix
 echo '-------合并fix分支-------'
 git push origin le
